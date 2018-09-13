@@ -1,3 +1,7 @@
+#! /usr/bin/env python3
+
+# Solution of first numerical problem of Assignment 3(may be other, check).
+
 import os
 import time
 

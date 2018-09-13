@@ -1,4 +1,7 @@
 #! /usr/bin/env python3
+
+## Solution of question number 3 of Ass 6.
+
 import numpy as np
 import matplotlib.pyplot as plt
 
