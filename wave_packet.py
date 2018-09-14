@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 os.system("clear")
 
 k0 = int(input("Enter the value of k0: "))
-width = 1 # lower value will make the program faster
+width = 0.5 # lower value will make the program faster
 k_min = k0 - width
 k_max = k0 + width
 del_k = 0.01
