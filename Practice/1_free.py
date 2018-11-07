@@ -45,11 +45,12 @@ def solution(psi_old, psi1_old, psi2_old, data):
         plt.show()
 
     p2_avg = -sum(psi2_old * psi_old ) * dx
+    v_avg = sum(psi_old * psi_old * V) * dx
 
     # Showing the result
     print("Energy of energy eigenstate {} = {:.2f}".format(found - 1,energy - energy_increase))
-    print("Average of potential = {:.4f}".format(V.sum()/total))
-    print("Average of square of momentum = {:.4f}".format(p2_avg))
+    print("Average of potential = {:.2f}".format(v_avg))
+    print("Average of square of momentum = {:.2f}".format(p2_avg))
     
     return 0
 
