@@ -3,7 +3,7 @@ import numpy as np
 
 energy = 0.0
 energy_increase = 0.01
-total = 10000
+total = 1000
 meet = int(0.6 * total)
 
 x = np.linspace(0,1, total)
@@ -14,7 +14,7 @@ def potential(x):
     return V
 
 
-def solution(psi_old, psi1_old,data):
+def solution(psi_old, psi1_old, psi2_old, data):
 
     # Rescaling the wave function
     scale = 1 / psi_old[meet] * data
@@ -22,6 +22,7 @@ def solution(psi_old, psi1_old,data):
     for i in range(meet, total):
         psi_old[i] = psi_old[i] * scale
         psi1_old[i] = psi1_old[i] * scale
+        psi2_old[i] = psi2_old[i] * scale
 
 
     # Normalizing the wave function
@@ -29,6 +30,7 @@ def solution(psi_old, psi1_old,data):
     A = (sum(psi_old**2) * dx) ** 0.5
     psi_old = psi_old/A
     psi1_old /= A
+    psi2_old /= A
 
     if (input("Show graphs?(y/N):") == 'y'):
 
@@ -42,12 +44,12 @@ def solution(psi_old, psi1_old,data):
         plt.legend()
         plt.show()
 
-    p_avg = sum(psi1_old * psi_old ) * dx / A
+    p2_avg = -sum(psi2_old * psi_old ) * dx
 
     # Showing the result
     print("Energy of energy eigenstate {} = {:.2f}".format(found - 1,energy - energy_increase))
     print("Average of potential = {:.4f}".format(V.sum()/total))
-    print("Average of momentum = {:.4f}".format(p_avg))
+    print("Average of square of momentum = {:.4f}".format(p2_avg))
     
     return 0
 
@@ -60,10 +62,11 @@ psi2 = np.zeros(total)
 
 psi_old = np.zeros(total)
 psi1_old = np.zeros(total)
+psi2_old = np.zeros(total)
 
 # No. of states to find
 
-n = 1
+n = 2
 found = 0
 k_p = 0
 k_pp = 0
@@ -101,10 +104,11 @@ while(found < n):
     if k_p < k_pp and k_p < k :
 
         found += 1
-        solution(psi_old, psi1_old, databak)
+        solution(psi_old, psi1_old, psi2_old, databak)
    
     psi_old = psi
     psi1_old = psi1
+    psi2_old = psi2
     k_pp = k_p
     k_p = k
     data1bak = data1
