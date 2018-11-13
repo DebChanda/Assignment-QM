@@ -67,7 +67,7 @@ psi2_old = np.zeros(total)
 
 # No. of states to find
 
-n = 2
+n = 3
 found = 0
 k_p = 0
 k_pp = 0
