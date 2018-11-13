@@ -12,7 +12,7 @@ x = np.linspace(0,1, total)
 dx = x[1] -x[0]
 
 def potential(x):
-    V = np.zeros(total)
+    V = 1- np.sin(np.pi * x)
     return V
 
 

@@ -12,7 +12,7 @@ x = np.linspace(0,1, total)
 dx = x[1] -x[0]
 
 def potential(x):
-    V = np.zeros(total)
+    V = np.sin(np.pi * x)
     return V
 
 
@@ -69,7 +69,7 @@ psi2_old = np.zeros(total)
 
 # No. of states to find
 
-n = 2
+n = 1
 found = 0
 k_p = 0
 k_pp = 0

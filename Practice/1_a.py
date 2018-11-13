@@ -13,6 +13,12 @@ dx = x[1] -x[0]
 
 def potential(x):
     V = np.zeros(total)
+    for i in range(total):
+        if x[i] <= 0.5:
+            V[i] = 2* x[i]
+        elif x[i] > 0.5:
+            V[i] = 2 - 2* x[i]
+
     return V
 
 
@@ -69,7 +75,7 @@ psi2_old = np.zeros(total)
 
 # No. of states to find
 
-n = 2
+n = 1
 found = 0
 k_p = 0
 k_pp = 0
