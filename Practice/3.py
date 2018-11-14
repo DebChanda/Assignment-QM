@@ -1,27 +1,27 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-energy = -5
+energy = 0.0
 energy_increase = 0.01
 total = 1000
 meet = int(0.6 * total)
-rrange = 100
-x = np.linspace(-rrange,rrange, total)
+lim = 6
+x = np.linspace(-lim,lim, total)
 dx = x[1] -x[0]
-v0 = -10
-a = 2
 
 def potential(x):
-    V = v0 / (a**2 + x**2) ** 0.5
-    # s = potential(x).min()
-    # V = V - s
+    V = np.zeros(total)
+    for i in range(total):
+        if x[i] < 0:
+            V[i] = 0.5 * x[i]**2
+        elif x[i] < 3:
+            V[i] = lim * x[i]
+        else:
+            V[i] = lim * 3
     return V
 
-plt.plot(x,potential(x) - potential(x).min())
+plt.plot(x,potential((x)))
 plt.show()
-
-# energy  = int(potential(x).min()) - 1
-print(energy)
 
 def solution(psi_old, psi1_old, psi2_old, data):
     
@@ -85,7 +85,6 @@ databak  = 0
 
 # Loop to brute force through energy values in steps of 0.01(energy_increase)
 while(found < n):
-# while energy < 0.0:
 
     psi = np.zeros(total)
     psi1 = np.zeros(total)
@@ -93,8 +92,6 @@ while(found < n):
     psi1[0] = 0.1
     psi1[-1] = -0.1
     V = potential(x)
-    s = V.min()
-    V = V - s
 
     for i in range(1,meet+1):
         # Doing the integration step by step
@@ -112,19 +109,16 @@ while(found < n):
         psi2[-i-1] = -2 * psi[-i-1] * (energy - V[-i-1])
 
     k = abs(data1/data - psi1[meet]/psi[meet])
-    # print(k, energy)
+    print(k,energy)
     if k < 0.1:
-        print(k, energy)
-        plt.plot(x,psi)
-        plt.show()
-    #     solution((psi,psi1,psi2,data))
+        print("this",k)
+    # A local minima of k will give the best match where the slopes from both sides are equal
+    if k_p < k_pp and k_p < k :
 
-    # # A local minima of k will give the best match where the slopes from both sides are equal
-    # if k_p < k_pp and k_p < k :
-
-    #     found += 1
-    #     solution(psi_old, psi1_old, psi2_old, databak)
-   
+        found += 1
+        print(k_p)
+        solution(psi_old, psi1_old, psi2_old, databak)
+    
     psi_old = psi
     psi1_old = psi1
     psi2_old = psi2
