@@ -1,20 +1,25 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-energy = 0.0
+energy = -5
 energy_increase = 0.01
-total = 10000
+total = 1000
 meet = int(0.6 * total)
-
-x = np.linspace(-16,16, total)
+rrange = 100
+x = np.linspace(-rrange,rrange, total)
 dx = x[1] -x[0]
-v0 = 5
-a = 1
+v0 = -10
+a = 2
 
 def potential(x):
     V = v0 / (a**2 + x**2) ** 0.5
     return V
 
+plt.plot(x,potential((x)))
+plt.show()
+
+energy  = int(potential(x).min()) - 1
+print(energy)
 
 def solution(psi_old, psi1_old, psi2_old, data):
     
@@ -77,7 +82,8 @@ data1bak = 0
 databak  = 0
 
 # Loop to brute force through energy values in steps of 0.01(energy_increase)
-while(found < n):
+# while(found < n):
+while energy < 0.0:
 
     psi = np.zeros(total)
     psi1 = np.zeros(total)
@@ -102,12 +108,18 @@ while(found < n):
         psi2[-i-1] = -2 * psi[-i-1] * (energy - V[-i-1])
 
     k = abs(data1/data - psi1[meet]/psi[meet])
+    # print(k, energy)
+    if k < 0.1:
+        print(k, energy)
+        plt.plot(x,psi)
+        plt.show()
+    #     solution((psi,psi1,psi2,data))
 
-    # A local minima of k will give the best match where the slopes from both sides are equal
-    if k_p < k_pp and k_p < k :
+    # # A local minima of k will give the best match where the slopes from both sides are equal
+    # if k_p < k_pp and k_p < k :
 
-        found += 1
-        solution(psi_old, psi1_old, psi2_old, databak)
+    #     found += 1
+    #     solution(psi_old, psi1_old, psi2_old, databak)
    
     psi_old = psi
     psi1_old = psi1

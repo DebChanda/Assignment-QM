@@ -13,6 +13,8 @@ def potential(x):
     V = abs(x)
     return V
 
+# plt.plot(x,potential((x)))
+# plt.show()
 
 def solution(psi_old, psi1_old, psi2_old, data):
     
